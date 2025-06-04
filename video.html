@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uzair Asad | Video Editing Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        :root {
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --accent1: #06b6d4;
+            --accent2: #818cf8;
+            --text: #334155;
+        }
+
+        body {
+            background: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent1);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)),
+                        url('https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=1920&q=80') center/cover;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent1);
+        }
+
+        .hero-text {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            background: var(--light);
+            color: var(--text);
+            padding: 5rem 2rem;
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 0 auto 8rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--accent1), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-item {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            background: var(--dark);
+        }
+
+        .video-item iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-item:hover .video-overlay {
+            opacity: 1;
+        }
+
+        .video-title {
+            font-size: 1.5rem;
+            color: var(--light);
+            margin-bottom: 1rem;
+        }
+
+        .video-category {
+            color: var(--accent1);
+            font-size: 1rem;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(45deg, var(--accent1), var(--accent2));
+            color: var(--light);
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--light);
+            color: var(--accent1);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Updated Instagram Reels Section Styles */
+        .reels-section {
+            margin: 4rem 0;
+            perspective: 1000px;
+        }
+
+        .reels-carousel {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 600px;
+            margin: 0 auto;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        .reel-item {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+            backface-visibility: hidden;
+        }
+
+        .reel-item.active {
+            transform: translateZ(0);
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .reel-item.prev {
+            transform: translateX(-100%) rotateY(30deg);
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .reel-item.next {
+            transform: translateX(100%) rotateY(-30deg);
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .reel-embed {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .reel-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+        }
+
+        .reel-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .reel-description {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+            z-index: 3;
+        }
+
+        .carousel-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            backdrop-filter: blur(5px);
+            transition: background 0.3s ease;
+        }
+
+        .carousel-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: white;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .reels-carousel {
+                max-width: 300px;
+                height: 450px;
+            }
+
+            .carousel-button {
+                width: 30px;
+                height: 30px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">Uzair Asad</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="video.html" class="nav-link">Video Editing</a>
+                <a href="marketing.html" class="nav-link">Marketing</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Video Editing Portfolio</h1>
+            <p class="hero-text">Crafting compelling visual stories through expert video editing and post-production</p>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Featured Projects</h2>
+            </div>
+            <div class="video-grid">
+                <div class="video-item">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/MnH-0_v3oR4" 
+                            title="YouTube video player" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title" style="text-align: center;">Short Film</h3>
+                       
+                    </div>
+                  
+                </div>
+                <div class="video-item">
+                    <div class="video-wrapper">
+                       <iframe 
+                            src="https://www.youtube.com/embed/GVv9081ZSzM
+" 
+                            title="YouTube video player" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                        </div>
+                          <div class="video-info">
+                        <h3 class="video-title" style="text-align: center;">Documentary</h3>
+                    </div>
+                  
+                </div>
+                <div class="video-item">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/HaqOalTA8f8" 
+                            title="YouTube video player" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title" style="text-align: center;">Short Film</h3>
+                       
+                    </div>
+                  
+                </div>
+            </div>
+        </section>
+
+     
+
+        <div class="reels-section">
+            <div class="section-header">
+                <h2 class="section-title">Instagram Reels</h2>
+                <p class="section-text">Check out my latest video editing work on Instagram</p>
+            </div>
+            <div class="reels-carousel">
+                <div class="reel-item active">
+                    <iframe 
+                        class="reel-embed"
+                        src="https://www.instagram.com/reel/C1XFh0MNqyx/embed"
+                        frameborder="0"
+                        scrolling="no"
+                        allowtransparency="true"
+                        allow="encrypted-media">
+                    </iframe>
+                    <div class="reel-info">
+                        <h3 class="reel-title">Cinematic Travel Reel</h3>
+                        <p class="reel-description">A cinematic journey through stunning landscapes</p>
+                    </div>
+                </div>
+                <div class="reel-item next">
+                    <iframe 
+                        class="reel-embed"
+                        src="https://www.instagram.com/reel/C0Y6hFjoEon/embed"
+                        frameborder="0"
+                        scrolling="no"
+                        allowtransparency="true"
+                        allow="encrypted-media">
+                    </iframe>
+                    <div class="reel-info">
+                        <h3 class="reel-title">Dynamic Motion Reel</h3>
+                        <p class="reel-description">Smooth transitions and dynamic editing</p>
+                    </div>
+                </div>
+                <div class="reel-item">
+                    <iframe 
+                        class="reel-embed"
+                        src="https://www.instagram.com/reel/C0j_pbLtTVF/embed"
+                        frameborder="0"
+                        scrolling="no"
+                        allowtransparency="true"
+                        allow="encrypted-media">
+                    </iframe>
+                    <div class="reel-info">
+                        <h3 class="reel-title">Creative Storytelling</h3>
+                        <p class="reel-description">Engaging narrative through visual storytelling</p>
+                    </div>
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-button prev">←</button>
+                    <button class="carousel-button next">→</button>
+                </div>
+            </div>
+            <div class="carousel-dots">
+                <span class="carousel-dot active"></span>
+                <span class="carousel-dot"></span>
+                <span class="carousel-dot"></span>
+            </div>
+        </div>
+
+       
+    </main>
+
+    <section class="cta-section">
+        <h2 class="cta-title">Ready to bring your vision to life?</h2>
+        <a href="contact.html" class="cta-button">Get in Touch</a>
+    </section>
+
+    <script>
+        // Carousel functionality
+        const carousel = document.querySelector('.reels-carousel');
+        const items = document.querySelectorAll('.reel-item');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const prevButton = document.querySelector('.carousel-button.prev');
+        const nextButton = document.querySelector('.carousel-button.next');
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            items.forEach((item, index) => {
+                item.classList.remove('active', 'prev', 'next');
+                if (index === currentIndex) {
+                    item.classList.add('active');
+                } else if (index === (currentIndex - 1 + items.length) % items.length) {
+                    item.classList.add('prev');
+                } else if (index === (currentIndex + 1) % items.length) {
+                    item.classList.add('next');
+                }
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % items.length;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + items.length) % items.length;
+            updateCarousel();
+        }
+
+        // Event listeners for carousel
+        prevButton.addEventListener('click', prevSlide);
+        nextButton.addEventListener('click', nextSlide);
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                updateCarousel();
+            });
+        });
+
+        // Auto-advance carousel every 5 seconds
+        setInterval(nextSlide, 5000);
+    </script>
+</body>
+</html> 

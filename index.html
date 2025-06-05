@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uzair Asad | Creative Professional</title>
-        <!-- Add this in the <head> section -->
-            <meta name="theme-color" content="#0f172a">
-
+    <title>Uzair Asad | Creative Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -72,78 +69,25 @@
             color: var(--accent1);
         }
 
-        .split-hero {
+        .hero {
             height: 100vh;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-        }
-
-        .hero-side {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-side::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.7);
-            z-index: 1;
-        }
-
-        .hero-video {
-            background: url('https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=1920&q=80') center/cover;
-        }
-
-        .hero-marketing {
-            background: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)),
+                        url('https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=1920&q=80') center/cover;
         }
 
         .hero-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 2;
-            text-align: center;
-            width: 100%;
-            padding: 2rem;
+            max-width: 800px;
         }
 
         .hero-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .hero-title::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: currentColor;
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.5s ease;
-        }
-
-        .hero-side:hover .hero-title::after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-
-        .hero-video .hero-title,
-        .hero-video .hero-text {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
             color: var(--accent1);
-        }
-
-        .hero-marketing .hero-title,
-        .hero-marketing .hero-text {
-            color: var(--accent2);
         }
 
         .hero-text {
@@ -163,10 +107,6 @@
             margin: 0 auto 8rem;
         }
 
-        .section:last-child {
-            margin-bottom: 0;
-        }
-
         .section-header {
             text-align: center;
             margin-bottom: 4rem;
@@ -180,10 +120,56 @@
             -webkit-text-fill-color: transparent;
         }
 
+        .section-text {
+            font-size: 1.1rem;
+            color: var(--text);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent1);
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .service-text {
+            color: var(--text);
+            line-height: 1.6;
+        }
+
         .work-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            margin-top: 4rem;
         }
 
         .work-item {
@@ -191,35 +177,36 @@
             border-radius: 1rem;
             overflow: hidden;
             aspect-ratio: 16/9;
+            background: var(--dark);
         }
 
         .work-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.3s ease;
+        }
+
+        .work-item:hover img {
+            transform: scale(1.1);
         }
 
         .work-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(45deg, rgba(6, 182, 212, 0.9), rgba(129, 140, 248, 0.9));
+            background: rgba(15, 23, 42, 0.7);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 2rem;
             text-align: center;
-            transform: translateY(100%);
-            transition: transform 0.5s ease;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .work-item:hover .work-overlay {
-            transform: translateY(0);
-        }
-
-        .work-item:hover img {
-            transform: scale(1.1);
+            opacity: 1;
         }
 
         .work-title {
@@ -229,56 +216,8 @@
         }
 
         .work-category {
-            color: var(--light);
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-        }
-
-        .skill-card {
-            padding: 2rem;
-            border-radius: 1rem;
-            background: white;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .skill-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
             color: var(--accent1);
-        }
-
-        .skill-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .skill-list {
-            list-style: none;
-        }
-
-        .skill-list li {
-            margin-bottom: 0.5rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .skill-list li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--accent2);
+            font-size: 1rem;
         }
 
         .cta-section {
@@ -309,21 +248,17 @@
         }
 
         @media (max-width: 768px) {
-            .split-hero {
-                grid-template-columns: 1fr;
-                height: auto;
-            }
-
-            .hero-side {
-                height: 50vh;
+            .hero-title {
+                font-size: 3rem;
             }
 
             .nav-links {
                 display: none;
             }
 
-            .section-title {
-                font-size: 2.5rem;
+            .services-grid,
+            .work-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -331,11 +266,7 @@
 <body>
     <nav class="nav">
         <div class="nav-content">
-     
-
-<!-- Update your logo element -->
-<a href="index.html" class="nav-logo" >Uzair Asad</a>
-
+            <a href="index.html" class="nav-logo">Uzair Asad</a>
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="video.html" class="nav-link">Video Editing</a>
@@ -346,87 +277,64 @@
         </div>
     </nav>
 
-    <div class="split-hero">
-        <div class="hero-side hero-video">
-            <div class="hero-content">
-                <h1 class="hero-title">Video Editing</h1>
-                <p class="hero-text">Crafting compelling visual stories through expert video editing and post-production</p>
-                <a href="video.html" class="cta-button">View Portfolio</a>
-            </div>
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Creative Portfolio</h1>
+            <p class="hero-text">Video Editing & Marketing Specialist crafting compelling visual stories and strategic campaigns</p>
         </div>
-        <div class="hero-side hero-marketing">
-            <div class="hero-content">
-                <h1 class="hero-title">Marketing</h1>
-                <p class="hero-text">Strategic marketing solutions that drive growth and engagement</p>
-                <a href="marketing.html" class="cta-button">View Portfolio</a>
-            </div>
-        </div>
-    </div>
+    </section>
 
     <main class="main-content">
         <section class="section">
             <div class="section-header">
-                <h2 class="section-title">Featured Work</h2>
+                <h2 class="section-title">Services</h2>
+                <p class="section-text">Comprehensive creative solutions for your visual storytelling and marketing needs</p>
             </div>
-            <div class="work-grid">
-                <div class="work-item">
-                    <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=800&q=80" alt="Video Project">
-                    <div class="work-overlay">
-                        <h3 class="work-title">Corporate Brand Video</h3>
-                        <p class="work-category">Video Editing</p>
-                    </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎬</div>
+                    <h3 class="service-title">Video Editing</h3>
+                    <p class="service-text">Professional video editing services including short films, documentaries, and social media content with cinematic quality and engaging storytelling.</p>
                 </div>
-                <div class="work-item">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Marketing Campaign">
-                    <div class="work-overlay">
-                        <h3 class="work-title">Brand Awareness Campaign</h3>
-                        <p class="work-category">Marketing</p>
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3 class="service-title">Social Media Content</h3>
+                    <p class="service-text">Engaging Instagram reels and social media content creation that captures attention and drives engagement.</p>
                 </div>
-                <div class="work-item">
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="Social Media">
-                    <div class="work-overlay">
-                        <h3 class="work-title">Social Media Strategy</h3>
-                        <p class="work-category">Digital Marketing</p>
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon">📈</div>
+                    <h3 class="service-title">Marketing Strategy</h3>
+                    <p class="service-text">Strategic marketing campaigns and brand development, including the successful Galux Hotel campaign with proven results.</p>
                 </div>
             </div>
         </section>
 
         <section class="section">
             <div class="section-header">
-                <h2 class="section-title">Expertise</h2>
+                <h2 class="section-title">Featured Work</h2>
+                <p class="section-text">Explore my latest projects in video editing and marketing</p>
             </div>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">🎬</div>
-                    <h3 class="skill-title">Video Production</h3>
-                    <ul class="skill-list">
-                        <li>Commercial Editing</li>
-                        <li>Motion Graphics</li>
-                        <li>Color Grading</li>
-                        <li>Sound Design</li>
-                    </ul>
+            <div class="work-grid">
+                <div class="work-item">
+                    <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=800&q=80" alt="Video Editing">
+                    <div class="work-overlay">
+                        <h3 class="work-title">Video Editing</h3>
+                        <p class="work-category">Short Films & Documentaries</p>
+                    </div>
                 </div>
-                <div class="skill-card">
-                    <div class="skill-icon">📈</div>
-                    <h3 class="skill-title">Marketing</h3>
-                    <ul class="skill-list">
-                        <li>Digital Strategy</li>
-                        <li>Brand Development</li>
-                        <li>Social Media</li>
-                        <li>Content Marketing</li>
-                    </ul>
+                <div class="work-item">
+                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=800&q=80" alt="Instagram Reels">
+                    <div class="work-overlay">
+                        <h3 class="work-title">Instagram Reels</h3>
+                        <p class="work-category">Social Media Content</p>
+                    </div>
                 </div>
-                <div class="skill-card">
-                    <div class="skill-icon">💡</div>
-                    <h3 class="skill-title">Creative Direction</h3>
-                    <ul class="skill-list">
-                        <li>Visual Storytelling</li>
-                        <li>Project Management</li>
-                        <li>Team Leadership</li>
-                        <li>Strategic Planning</li>
-                    </ul>
+                <div class="work-item">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="Marketing">
+                    <div class="work-overlay">
+                        <h3 class="work-title">Marketing</h3>
+                        <p class="work-category">Galux Hotel Campaign</p>
+                    </div>
                 </div>
             </div>
         </section>

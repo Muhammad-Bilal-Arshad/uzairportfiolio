@@ -223,27 +223,54 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             transition: all 0.5s ease;
             backface-visibility: hidden;
+            opacity: 0;
+            transform: translateX(100%) rotateY(-30deg);
+            pointer-events: none;
         }
 
         .reel-item.active {
-            transform: translateZ(0);
+            transform: translateX(0) rotateY(0);
             opacity: 1;
             z-index: 2;
+            pointer-events: auto;
         }
 
         .reel-item.prev {
             transform: translateX(-100%) rotateY(30deg);
             opacity: 0.5;
             z-index: 1;
+            pointer-events: none;
         }
 
         .reel-item.next {
             transform: translateX(100%) rotateY(-30deg);
             opacity: 0.5;
             z-index: 1;
+            pointer-events: none;
+        }
+
+        .reel-item.hidden {
+            transform: translateX(200%) rotateY(-30deg);
+            opacity: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .reel-item.hidden-prev {
+            transform: translateX(-200%) rotateY(30deg);
+            opacity: 0;
+            z-index: 0;
+            pointer-events: none;
         }
 
         .reel-embed {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #000;
+        }
+
+        .reel-embed iframe {
             width: 100%;
             height: 100%;
             border: none;
@@ -257,6 +284,7 @@
             padding: 1.5rem;
             background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
             color: white;
+            z-index: 2;
         }
 
         .reel-title {
@@ -423,51 +451,69 @@
 
      
 
-        <div class="reels-section"id="reels-section">
+        <div class="reels-section" id="reels-section">
             <div class="section-header">
                 <h2 class="section-title">Instagram Reels</h2>
                 <p class="section-text">Check out my latest video editing work on Instagram</p>
             </div>
             <div class="reels-carousel">
                 <div class="reel-item active">
-                    <iframe 
-                        class="reel-embed"
-                        src="https://www.instagram.com/reel/C1XFh0MNqyx/embed"
-                        frameborder="0"
-                        scrolling="no"
-                        allowtransparency="true"
-                        allow="encrypted-media">
-                    </iframe>
+                    <div class="reel-embed">
+                        <iframe 
+                            src="https://www.instagram.com/p/C1XFh0MNqyx/embed"
+                            frameborder="0"
+                            scrolling="no"
+                            allowtransparency="true"
+                            allow="encrypted-media">
+                        </iframe>
+                    </div>
                     <div class="reel-info">
                         <h3 class="reel-title">Music Video</h3>
                         <p class="reel-description">A cinematic journey through stunning landscapes</p>
                     </div>
                 </div>
                 <div class="reel-item next">
-                    <iframe 
-                        class="reel-embed"
-                        src="https://www.instagram.com/reel/C0Y6hFjoEon/embed"
-                        frameborder="0"
-                        scrolling="no"
-                        allowtransparency="true"
-                        allow="encrypted-media">
-                    </iframe>
+                    <div class="reel-embed">
+                        <iframe 
+                            src="https://www.instagram.com/p/C0Y6hFjoEon/embed"
+                            frameborder="0"
+                            scrolling="no"
+                            allowtransparency="true"
+                            allow="encrypted-media">
+                        </iframe>
+                    </div>
                     <div class="reel-info">
                         <h3 class="reel-title">Dynamic Motion Reel</h3>
                         <p class="reel-description">Smooth transitions and dynamic editing</p>
                     </div>
                 </div>
                 <div class="reel-item">
-                    <iframe 
-                        class="reel-embed"
-                        src="https://www.instagram.com/reel/C0j_pbLtTVF/embed"
-                        frameborder="0"
-                        scrolling="no"
-                        allowtransparency="true"
-                        allow="encrypted-media">
-                    </iframe>
+                    <div class="reel-embed">
+                        <iframe 
+                            src="https://www.instagram.com/p/C0j_pbLtTVF/embed"
+                            frameborder="0"
+                            scrolling="no"
+                            allowtransparency="true"
+                            allow="encrypted-media">
+                        </iframe>
+                    </div>
                     <div class="reel-info">
                         <h3 class="reel-title">Creative Storytelling</h3>
+                        <p class="reel-description">Engaging narrative through visual storytelling</p>
+                    </div>
+                </div>
+                <div class="reel-item">
+                    <div class="reel-embed">
+                        <iframe 
+                            src="https://www.instagram.com/p/DKgwzgnPY6q/embed"
+                            frameborder="0"
+                            scrolling="no"
+                            allowtransparency="true"
+                            allow="encrypted-media">
+                        </iframe>
+                    </div>
+                    <div class="reel-info">
+                        <h3 class="reel-title">Music Video</h3>
                         <p class="reel-description">Engaging narrative through visual storytelling</p>
                     </div>
                 </div>
@@ -478,6 +524,7 @@
             </div>
             <div class="carousel-dots">
                 <span class="carousel-dot active"></span>
+                <span class="carousel-dot"></span>
                 <span class="carousel-dot"></span>
                 <span class="carousel-dot"></span>
             </div>
@@ -502,16 +549,31 @@
 
         function updateCarousel() {
             items.forEach((item, index) => {
-                item.classList.remove('active', 'prev', 'next');
+                // Remove all classes first
+                item.classList.remove('active', 'prev', 'next', 'hidden', 'hidden-prev');
+                
+                // Calculate positions
+                const totalItems = items.length;
+                const prevIndex = (currentIndex - 1 + totalItems) % totalItems;
+                const nextIndex = (currentIndex + 1) % totalItems;
+                const hiddenNextIndex = (currentIndex + 2) % totalItems;
+                const hiddenPrevIndex = (currentIndex - 2 + totalItems) % totalItems;
+
+                // Apply appropriate classes
                 if (index === currentIndex) {
                     item.classList.add('active');
-                } else if (index === (currentIndex - 1 + items.length) % items.length) {
+                } else if (index === prevIndex) {
                     item.classList.add('prev');
-                } else if (index === (currentIndex + 1) % items.length) {
+                } else if (index === nextIndex) {
                     item.classList.add('next');
+                } else if (index === hiddenNextIndex) {
+                    item.classList.add('hidden');
+                } else if (index === hiddenPrevIndex) {
+                    item.classList.add('hidden-prev');
                 }
             });
 
+            // Update dots
             dots.forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentIndex);
             });
@@ -536,6 +598,9 @@
                 updateCarousel();
             });
         });
+
+        // Initialize carousel
+        updateCarousel();
 
         // Auto-advance carousel every 5 seconds
         setInterval(nextSlide, 5000);

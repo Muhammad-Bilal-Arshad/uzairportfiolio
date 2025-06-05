@@ -186,10 +186,52 @@
             font-weight: 500;
             cursor: pointer;
             transition: transform 0.3s ease;
+            text-decoration: none;
         }
 
         .submit-button:hover {
             transform: translateY(-2px);
+        }
+
+        .success-message {
+            display: none;
+            background: #10B981;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .error-message {
+            display: none;
+            background: #EF4444;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .whatsapp-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #25D366;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .whatsapp-icon {
+            font-size: 1.2rem;
         }
 
         .social-links {
@@ -279,7 +321,16 @@
                    
                 </div>
             </div>
-            <form class="contact-form" action="#" method="POST">
+            <form class="contact-form" id="contactForm" action="https://formsubmit.co/Uzairasad.77@gmail.com" method="POST">
+                <!-- Honeypot to prevent spam -->
+                <input type="text" name="_honey" style="display:none">
+                
+                <!-- Disable Captcha -->
+                <input type="hidden" name="_captcha" value="false">
+                
+                <!-- Specify redirect after submission -->
+                <input type="hidden" name="_next" value="thanks.html">
+                
                 <div class="form-group">
                     <label class="form-label" for="name">Name</label>
                     <input type="text" id="name" name="name" class="form-input" required>
@@ -300,5 +351,13 @@
             </form>
         </div>
     </section>
+
+    <script>
+        // Remove the previous form submission handler since FormSubmit will handle it
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            // FormSubmit will handle the submission
+            // We don't need to prevent default or handle the submission ourselves
+        });
+    </script>
 </body>
 </html> 
